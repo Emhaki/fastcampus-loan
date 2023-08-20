@@ -39,7 +39,8 @@ public class CounselServiceImpl implements CounselService {
 
     @Override
     public Response update(Long counselId, Request request) {
-        Counsel counsel = counselRepository.findById(counselId).orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+        Counsel counsel = counselRepository.findById(counselId).orElseThrow(() ->
+                new BaseException(ResultType.SYSTEM_ERROR));
 
         counsel.setName(request.getName());
         counsel.setCellPhone(request.getCellPhone());
@@ -53,4 +54,14 @@ public class CounselServiceImpl implements CounselService {
 
         return modelMapper.map(counsel, Response.class);
     }
+
+    @Override
+    public void delete(Long counselId) {
+        Counsel counsel = counselRepository.findById(counselId).orElseThrow(() ->
+                new BaseException(ResultType.SYSTEM_ERROR));
+    counsel.setIsDeleted(true);
+
+    counselRepository.save(counsel);
+    }
+
 }
