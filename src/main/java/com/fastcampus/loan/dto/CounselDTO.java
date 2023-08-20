@@ -1,21 +1,18 @@
 package com.fastcampus.loan.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-public class CounselDTO implements Serializable {
+import java.time.LocalDateTime;
+
+public class CounselDTO {
 
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
   @Getter
-  @Setter
   public static class Request {
+
+    private Long counselId;
 
     private String name;
 
@@ -30,6 +27,13 @@ public class CounselDTO implements Serializable {
     private String addressDetail;
 
     private String zipCode;
+
+    private LocalDateTime appliedAt;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
   }
 
   @NoArgsConstructor

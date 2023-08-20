@@ -3,16 +3,6 @@ package com.fastcampus.loan.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.fastcampus.loan.domain.AcceptTerms;
-import com.fastcampus.loan.domain.Application;
-import com.fastcampus.loan.domain.Terms;
-import com.fastcampus.loan.dto.ApplicationDTO;
-import com.fastcampus.loan.dto.ApplicationDTO.Request;
-import com.fastcampus.loan.dto.ApplicationDTO.Response;
-import com.fastcampus.loan.exception.BaseException;
-import com.fastcampus.loan.repository.AcceptTermsRepository;
-import com.fastcampus.loan.repository.ApplicationRepository;
-import com.fastcampus.loan.repository.TermsRepository;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;

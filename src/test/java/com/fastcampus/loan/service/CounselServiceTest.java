@@ -6,8 +6,6 @@ import static org.mockito.Mockito.when;
 import com.fastcampus.loan.domain.Counsel;
 import com.fastcampus.loan.dto.CounselDTO.Request;
 import com.fastcampus.loan.dto.CounselDTO.Response;
-import com.fastcampus.loan.exception.BaseException;
-import com.fastcampus.loan.exception.ResultType;
 import com.fastcampus.loan.repository.CounselRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.Assertions;

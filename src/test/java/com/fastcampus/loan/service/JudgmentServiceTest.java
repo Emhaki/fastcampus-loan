@@ -3,13 +3,6 @@ package com.fastcampus.loan.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.fastcampus.loan.domain.Application;
-import com.fastcampus.loan.domain.Judgment;
-import com.fastcampus.loan.dto.ApplicationDTO.GrantAmount;
-import com.fastcampus.loan.dto.JudgmentDTO.Request;
-import com.fastcampus.loan.dto.JudgmentDTO.Response;
-import com.fastcampus.loan.repository.ApplicationRepository;
-import com.fastcampus.loan.repository.JudgmentRepository;
 import java.math.BigDecimal;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;

@@ -3,11 +3,6 @@ package com.fastcampus.loan.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-import com.fastcampus.loan.domain.Terms;
-import com.fastcampus.loan.dto.TermsDTO.Response;
-import com.fastcampus.loan.dto.TermsDTO.Request;
-import com.fastcampus.loan.repository.TermsRepository;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
