@@ -31,10 +31,13 @@ public class Counsel extends BaseEntity {
   @Column(nullable = false, columnDefinition = "varchar(12) COMMENT '상담 요청자'")
   private String name;
 
-  @Column(nullable = false, columnDefinition = "varchar(23) COMMENT '전화번호'")
+  @Column(nullable = false, columnDefinition = "varchar(13) COMMENT '전화번호'")
   private String cellPhone;
 
   @Column(columnDefinition = "varchar(50) DEFAULT NULL COMMENT '상담 요청자 이메일'")
+  private String email;
+
+  @Column(columnDefinition = "text DEFAULT NULL COMMENT '상담 메모'")
   private String memo;
 
   @Column(columnDefinition = "varchar(50) DEFAULT NULL COMMENT '주소'")

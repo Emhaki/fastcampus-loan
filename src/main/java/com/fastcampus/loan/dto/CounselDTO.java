@@ -2,9 +2,10 @@ package com.fastcampus.loan.dto;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class CounselDTO {
+public class CounselDTO implements Serializable {
 
   @NoArgsConstructor
   @AllArgsConstructor
@@ -27,12 +28,6 @@ public class CounselDTO {
     private String addressDetail;
 
     private String zipCode;
-
-    private LocalDateTime appliedAt;
-
-    private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 
   }
 
