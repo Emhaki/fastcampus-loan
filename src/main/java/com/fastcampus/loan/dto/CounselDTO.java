@@ -11,6 +11,7 @@ public class CounselDTO implements Serializable {
   @AllArgsConstructor
   @Builder
   @Getter
+  @Setter
   public static class Request {
 
     private Long counselId;
