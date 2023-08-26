@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TermsServiceImpl implements TermsService {
 
-    private final TermsRepository repository;
+    private final TermsRepository termsRepository;
 
     private final ModelMapper modelMapper;
 
@@ -22,6 +22,8 @@ public class TermsServiceImpl implements TermsService {
     public Response create(Request request) {
 
         Terms terms = modelMapper.map(request, Terms.class);
-        return null;
+        Terms created = termsRepository.save(terms);
+
+        return modelMapper.map(created, Response.class);
     }
 }
