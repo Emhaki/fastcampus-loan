@@ -8,6 +8,7 @@ import com.fastcampus.loan.dto.ApplicationDTO.Response;
 import com.fastcampus.loan.dto.ApplicationDTO.Request;
 import com.fastcampus.loan.exception.BaseException;
 import com.fastcampus.loan.exception.ResultType;
+import com.fastcampus.loan.repository.AcceptTermsRepository;
 import com.fastcampus.loan.repository.ApplicationRepository;
 import com.fastcampus.loan.repository.TermsRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     private final ApplicationRepository applicationRepository;
 
     private final TermsRepository termsRepository;
+
+    private final AcceptTermsRepository acceptTermsRepository;
 
     private final ModelMapper modelMapper;
 
@@ -97,6 +100,15 @@ public class ApplicationServiceImpl implements ApplicationService {
         throw new BaseException(ResultType.SYSTEM_ERROR);
     }
 
-    return null;
+    for (Long termsId : acceptTermsIds) {
+        com.fastcampus.loan.domain.AcceptTerms accepted = com.fastcampus.loan.domain.AcceptTerms.builder()
+                .termsId(termsId)
+                .applicationId(applicationId)
+                .build();
+
+        acceptTermsRepository.save(accepted);
+    }
+
+    return true;
     }
 }
