@@ -1,0 +1,42 @@
+package com.fastcampus.loan.service;
+
+import com.fastcampus.loan.domain.Judgment;
+import com.fastcampus.loan.dto.JudgmentDTO.Response;
+import com.fastcampus.loan.dto.JudgmentDTO.Request;
+import com.fastcampus.loan.exception.BaseException;
+import com.fastcampus.loan.exception.ResultType;
+import com.fastcampus.loan.repository.ApplicationRepository;
+import com.fastcampus.loan.repository.JudgmentRepository;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class JudgmentServiceImpl implements JudgmentService {
+
+    private final JudgmentRepository judgmentRepository;
+
+    private final ApplicationRepository applicationRepository;
+
+    private final ModelMapper modelMapper;
+
+    @Override
+    public Response create(Request request) {
+        // 신청 정보 검증
+        Long applicationId = request.getApplicationId();
+        if (!isPresentApplication(applicationId)) {
+            throw new BaseException(ResultType.SYSTEM_ERROR);
+        }
+        // request DTO -> entity -> save
+        Judgment judgment = modelMapper.map(request, Judgment.class);
+
+        Judgment saved = judgmentRepository.save(judgment);
+        // save -> response DTO
+        return modelMapper.map(saved, Response.class);
+    }
+
+    private boolean isPresentApplication(Long applicationId) {
+        return applicationRepository.findById(applicationId).isPresent();
+    }
+}
