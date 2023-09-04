@@ -25,7 +25,7 @@ public class JudgmentServiceImpl implements JudgmentService {
     public Response create(Request request) {
         // 신청 정보 검증
         Long applicationId = request.getApplicationId();
-        if (!isPresentApplication(applicationId)) {
+        if (isPresentApplication(applicationId)) {
             throw new BaseException(ResultType.SYSTEM_ERROR);
         }
         // request DTO -> entity -> save
@@ -34,6 +34,27 @@ public class JudgmentServiceImpl implements JudgmentService {
         Judgment saved = judgmentRepository.save(judgment);
         // save -> response DTO
         return modelMapper.map(saved, Response.class);
+    }
+
+    @Override
+    public Response get(Long judgmentId) {
+        Judgment judgment = judgmentRepository.findById(judgmentId).orElseThrow(() ->
+                new BaseException(ResultType.SYSTEM_ERROR));
+
+        return modelMapper.map(judgment, Response.class);
+    }
+
+    @Override
+    public Response getJudgmentOfApplication(Long applicationId) {
+        if (isPresentApplication(applicationId)) {
+            throw new BaseException(ResultType.SYSTEM_ERROR);
+        }
+
+        Judgment judgment = judgmentRepository.findByApplicationId(applicationId).orElseThrow(() -> {
+            throw new BaseException(ResultType.SYSTEM_ERROR);
+        });
+
+        return modelMapper.map(judgment, Response.class);
     }
 
     private boolean isPresentApplication(Long applicationId) {
