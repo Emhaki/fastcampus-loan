@@ -57,6 +57,11 @@ public class JudgmentServiceImpl implements JudgmentService {
         return modelMapper.map(judgment, Response.class);
     }
 
+    @Override
+    public Response update(Long judgmentId, Request request) {
+        return null;
+    }
+
     private boolean isPresentApplication(Long applicationId) {
         return applicationRepository.findById(applicationId).isPresent();
     }
