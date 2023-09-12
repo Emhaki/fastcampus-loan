@@ -59,7 +59,14 @@ public class JudgmentServiceImpl implements JudgmentService {
 
     @Override
     public Response update(Long judgmentId, Request request) {
-        return null;
+        Judgment judgment = judgmentRepository.findById(judgmentId).orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+
+        judgment.setName(request.getName());
+        judgment.setApprovalAmount(request.getApprovalAmount());
+
+        judgmentRepository.save(judgment);
+
+        return modelMapper.map(judgment, Response.class);
     }
 
     private boolean isPresentApplication(Long applicationId) {
