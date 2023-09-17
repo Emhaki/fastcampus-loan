@@ -44,7 +44,9 @@ public class ApplicationDTO implements Serializable {
 
         private LocalDateTime appliedAt;
 
-        private LocalDateTime createAt;
+        private LocalDateTime contractedAt;
+
+        private LocalDateTime createdAt;
 
         private LocalDateTime updatedAt;
     }
@@ -63,6 +65,7 @@ public class ApplicationDTO implements Serializable {
     @AllArgsConstructor
     @Builder
     @Getter
+    @Setter
     public static class GrantAmount {
 
         private Long applicationId;
