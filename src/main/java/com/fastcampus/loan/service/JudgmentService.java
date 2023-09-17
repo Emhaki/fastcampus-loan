@@ -1,5 +1,6 @@
 package com.fastcampus.loan.service;
 
+import com.fastcampus.loan.dto.ApplicationDTO;
 import com.fastcampus.loan.dto.JudgmentDTO.Response;
 import com.fastcampus.loan.dto.JudgmentDTO.Request;
 
@@ -14,4 +15,6 @@ public interface JudgmentService {
     Response update(Long judgmentId, Request request);
 
     void delete(Long judgmentId);
+
+    ApplicationDTO.GrantAmount grant(Long judgment);
 }

@@ -58,4 +58,20 @@ public class ApplicationDTO implements Serializable {
 
         List<Long> acceptTermsIds;
     }
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    @Getter
+    public static class GrantAmount {
+
+        private Long applicationId;
+
+        private BigDecimal approvalAmount;
+
+        private LocalDateTime createdAt;
+
+        private LocalDateTime updatedAt;
+
+    }
 }
