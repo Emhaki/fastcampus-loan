@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,40 @@ public class EntryServiceImpl implements EntryService {
         balanceService.create(applicationId, BalanceDTO.Request.builder().entryAmount(request.getEntryAmount()).build());
 
         return modelMapper.map(entry, EntryDTO.Response.class);
+    }
+
+    @Override
+    public EntryDTO.Response get(Long applicationId) {
+        Optional<Entry> entry = entryRepository.findByApplicationId(applicationId);
+
+        if (entry.isPresent()) {
+            return modelMapper.map(entry, EntryDTO.Response.class);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public EntryDTO.UpdateResponse update(Long entryId, EntryDTO.Request request) {
+        // entry
+        Entry entry = entryRepository.findById(entryId).orElseThrow(() -> new BaseException(ResultType.SYSTEM_ERROR));
+
+        // before -> after
+        BigDecimal beforeEntryAmount = entry.getEntryAmount();
+        entry.setEntryAmount(request.getEntryAmount());
+
+        entryRepository.save(entry);
+
+        // balance update
+        Long applicationId = entry.getApplicationId();
+        balanceService.update(applicationId,
+                BalanceDTO.UpdateRequest.builder()
+                    .beforeEntryAmount(beforeEntryAmount)
+                    .afterEntryAmount(request.getEntryAmount())
+                    .build());
+
+        // response
+        return EntryDTO.UpdateResponse.builder().applicationId(applicationId).beforeEntryAmount(beforeEntryAmount).afterEntryAmount(request.getEntryAmount()).build();
     }
 
     private boolean isContractedApplication(Long applicationId) {
