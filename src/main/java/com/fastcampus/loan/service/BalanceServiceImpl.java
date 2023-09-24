@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
-public class BalanceServiceImpl implements BalanceService{
+public class BalanceServiceImpl implements BalanceService {
 
     private final BalanceRepository balanceRepository;
 
@@ -38,6 +38,11 @@ public class BalanceServiceImpl implements BalanceService{
     }
 
     @Override
+    public BalanceDTO.Response get(Long applicationId) {
+        return null;
+    }
+
+    @Override
     public BalanceDTO.Response update(Long applicationId, BalanceDTO.UpdateRequest request) {
 
         // balance
@@ -54,5 +59,34 @@ public class BalanceServiceImpl implements BalanceService{
         Balance updated = balanceRepository.save(balance);
 
         return modelMapper.map(updated, BalanceDTO.Response.class);
+    }
+
+    @Override
+    public BalanceDTO.Response repaymentUpdate(Long applicationId, BalanceDTO.RepaymentRequest request) {
+        Balance balance = balanceRepository.findByApplicationId(applicationId).orElseThrow(() -> {
+            throw new BaseException(ResultType.SYSTEM_ERROR);
+        });
+
+        BigDecimal updatedBalance = balance.getBalance();
+        BigDecimal repaymentAmount = request.getRepaymentAmount();
+
+        // 상환 정상: balance - repaymentAmount
+        // 상환금 롤백 : balance + repaymentAmount
+        if (request.getType().equals(BalanceDTO.RepaymentRequest.RepaymentType.ADD)) {
+            updatedBalance = updatedBalance.add(repaymentAmount);
+        } else {
+            updatedBalance = updatedBalance.subtract(repaymentAmount);
+        }
+
+        balance.setBalance(updatedBalance);
+
+        Balance updated = balanceRepository.save(balance);
+
+        return modelMapper.map(updated, BalanceDTO.Response.class);
+    }
+
+    @Override
+    public void delete(Long applicationId) {
+
     }
 }
