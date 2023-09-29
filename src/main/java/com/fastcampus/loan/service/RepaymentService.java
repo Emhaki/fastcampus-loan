@@ -8,5 +8,5 @@ public interface RepaymentService {
 
     RepaymentDTO.Response create(Long applicationId, RepaymentDTO.Request request);
 
-    List<Object> get(Long applicationId);
+    List<RepaymentDTO.ListResponse> get(Long applicationId);
 }
